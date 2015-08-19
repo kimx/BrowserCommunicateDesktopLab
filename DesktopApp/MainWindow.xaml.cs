@@ -22,12 +22,35 @@ namespace DesktopApp
     {
         public static string CurrentAccount;
         HttpLoginListener _httpLoginListener;
+        WebSocketLoginListener _webSocketLoginListener;
         public MainWindow()
         {
             InitializeComponent();
             this.gdDisplay.IsEnabled = false;
             this._httpLoginListener = new HttpLoginListener();
+
+            //WebSocketListener();
         }
+
+        #region WebSocketListener
+        private void WebSocketListener()
+        {
+            this._webSocketLoginListener = new WebSocketLoginListener(1105);
+            this._webSocketLoginListener.OnConnected += _webSocketLoginListener_OnConnected;
+            this._webSocketLoginListener.Start();//第一次防火牆會要求可以通過
+        }
+
+        private void _webSocketLoginListener_OnConnected(WebSocketConnection sender, EventArgs ev)
+        {
+            sender.OnDataReceived += Sender_OnDataReceived;
+        }
+
+        private void Sender_OnDataReceived(WebSocketConnection sender, DataReceivedEventArgs ev)
+        {
+            _webSocketLoginListener.SendToClient(CurrentAccount + "-" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), sender);
+        }
+        #endregion
+
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
