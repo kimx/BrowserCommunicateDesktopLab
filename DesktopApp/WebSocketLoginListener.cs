@@ -178,7 +178,8 @@ namespace DesktopApp
         /// </summary>
         private void listen()
         {
-            _connection.BeginReceive(_dataBuffer, 0, _dataBuffer.Length, SocketFlags.None, Read, null);
+            //先停用監聽
+          //  _connection.BeginReceive(_dataBuffer, 0, _dataBuffer.Length, SocketFlags.None, Read, null);
         }
 
         /// <summary>

@@ -21,15 +21,12 @@ namespace DesktopApp
     public partial class MainWindow : Window
     {
         public static string CurrentAccount;
-        HttpLoginListener _httpLoginListener;
         WebSocketLoginListener _webSocketLoginListener;
         public MainWindow()
         {
             InitializeComponent();
-            this.gdDisplay.IsEnabled = false;
-            this._httpLoginListener = new HttpLoginListener();
 
-            //WebSocketListener();
+            WebSocketListener();
         }
 
         #region WebSocketListener
@@ -40,33 +37,28 @@ namespace DesktopApp
             this._webSocketLoginListener.Start();//第一次防火牆會要求可以通過
         }
 
+        WebSocketConnection webSocketConnection;
+
         private void _webSocketLoginListener_OnConnected(WebSocketConnection sender, EventArgs ev)
         {
+            webSocketConnection = sender;
             sender.OnDataReceived += Sender_OnDataReceived;
+
         }
 
         private void Sender_OnDataReceived(WebSocketConnection sender, DataReceivedEventArgs ev)
         {
+
             _webSocketLoginListener.SendToClient(CurrentAccount + "-" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), sender);
         }
         #endregion
 
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            this.lblWelcome.Content = string.Format("Welcome {0} !", txtAccount.Text);
-            CurrentAccount = txtAccount.Text;
-            this.gdDisplay.IsEnabled = true;
-            this.gdLogin.IsEnabled = false;
-            this._httpLoginListener.Start("http://localhost:60099/");
-        }
+            Random random = new Random(DateTime.Now.Millisecond);//亂數種子
+            var i = random.NextDouble() * random.Next(1, 100);
+            _webSocketLoginListener.SendToClient($"{i} KG", webSocketConnection);
 
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
-        {
-            this.lblWelcome.Content = "";
-            this.gdDisplay.IsEnabled = false;
-            this.gdLogin.IsEnabled = true;
-            this._httpLoginListener.Close();
         }
     }
 }

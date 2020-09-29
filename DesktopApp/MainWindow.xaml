@@ -5,22 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopApp"
         mc:Ignorable="d"
-        Title="Login" Height="200" Width="525">
+        Title="Websocket Send" Height="101.401" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="482*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Height="169" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2">
-            <Grid Height="45" x:Name="gdLogin">
-                <Label x:Name="label" Content="Account" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="96"/>
-                <TextBox x:Name="txtAccount" HorizontalAlignment="Left" Height="23" Margin="111,10,0,0" TextWrapping="Wrap" Text="Kim" VerticalAlignment="Top" Width="179"/>
-                <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="309,13,0,0" VerticalAlignment="Top" Width="75" Click="btnLogin_Click"/>
-            </Grid>
-            <Grid Height="100" x:Name="gdDisplay">
-                <Label x:Name="lblWelcome" Content="" HorizontalAlignment="Left" Margin="39,30,0,0" VerticalAlignment="Top" Width="449" FontWeight="Bold" FontSize="24"/>
-                <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="315,71,0,0" VerticalAlignment="Top" Width="75" Click="btnLogout_Click"/>
-            </Grid>
+        <StackPanel HorizontalAlignment="Center" Height="58" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="3" Margin="0,0,0,-2">
+            <Button x:Name="btnSend" Content="Send" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="212" Click="btnSend_Click" Height="56" Margin="152,0,153,0"/>
+
         </StackPanel>
     </Grid>
 </Window>

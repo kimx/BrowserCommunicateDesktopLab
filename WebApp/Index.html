@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Socket Received v3</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    Connection State: <span id="status"></span>
+    <br /><span id="accountName"></span>
+    <script type="text/javascript">
+        $(function () {
+            function onMessage(message) {
+                var pre = $("#accountName").html();
+                $("#accountName").html(message + "<br/>" + pre);
+            }
+
+
+            function connect() {
+                //var ws = new WebSocket('ws://localhost:1105');
+                var ws = new WebSocket('ws://localhost:1105');
+                ws.onopen = function () {
+                    console.log("Connected");
+                    $("#status").html("Connected");
+                    // subscribe to some channels
+                    //ws.send(JSON.stringify({
+                    //    //.... some message the I must send when I connect ....
+                    //}));
+                };
+
+                ws.onmessage = function (evt) {
+                    console.log("Received")
+                    console.log(evt);
+                    localStorage.setItem('storage-event', evt.data);//會通知另一個tab
+                    onMessage(evt.data);
+                };
+
+                ws.onclose = function (e) {
+                    $("#status").html("Closed : Socket is closed. Reconnect will be attempted in 1 second." + new Date().toLocaleTimeString());
+                    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+                    setTimeout(function () {
+                        connect();
+                    }, 1000);
+                };
+
+                ws.onerror = function (err) {
+                    $("#status").html("Error");
+                    console.error('Socket encountered error: ', err.message, 'Closing socket');
+                    ws.close();
+                };
+            }
+
+
+
+            connect();
+
+            window.addEventListener("storage", function (e) {
+                console.log("storage event trigged");
+                if (e.key == 'storage-event') {
+                    onMessage(e.newValue);
+                }
+            }, true);
+
+        })
+    </script>
+</body>
+</html>
