@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApp", "DesktopApp\DesktopApp.csproj", "{540A1113-E188-4C4A-9205-DF0BE207B177}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{6C636F91-3A36-460F-B91B-4051E6BF4D40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsockAppLab", "WebsockAppLab\WebsockAppLab.csproj", "{789B531F-4691-4F52-84C1-E976BD472A06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{6C636F91-3A36-460F-B91B-4051E6BF4D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C636F91-3A36-460F-B91B-4051E6BF4D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C636F91-3A36-460F-B91B-4051E6BF4D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{789B531F-4691-4F52-84C1-E976BD472A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789B531F-4691-4F52-84C1-E976BD472A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789B531F-4691-4F52-84C1-E976BD472A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789B531F-4691-4F52-84C1-E976BD472A06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F168549-3A98-4AD4-BFF3-5742E658E009}
 	EndGlobalSection
 EndGlobal

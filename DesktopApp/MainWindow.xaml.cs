@@ -32,7 +32,7 @@ namespace DesktopApp
         #region WebSocketListener
         private void WebSocketListener()
         {
-            this._webSocketLoginListener = new WebSocketLoginListener(1105);
+            this._webSocketLoginListener = new WebSocketLoginListener(20209);
             this._webSocketLoginListener.OnConnected += _webSocketLoginListener_OnConnected;
             this._webSocketLoginListener.Start();//第一次防火牆會要求可以通過
         }

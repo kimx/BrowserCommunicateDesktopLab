@@ -1,13 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Web Socket Received v3</title>
+    <title>Web Socket:使用 WebSocketSharp</title>
     <meta charset="utf-8" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
-    Connection State: <span id="status"></span>
+    UgozWebSocketService  Connection State: <span id="status"></span>
+    <div>
+        <input type="text" id="txtData" /> <button type="button" id="btnSend">Send</button>
+    </div>
     <br /><span id="accountName"></span>
+
     <script type="text/javascript">
         $(function () {
             function onMessage(message) {
@@ -18,21 +22,20 @@
 
             function connect() {
                 //var ws = new WebSocket('ws://localhost:1105');
-                var ws = new WebSocket('ws://localhost:20209');
+            //    var ws = new WebSocket('ws://localhost:55688/scales');
+                var ws = new WebSocket('ws://localhost:55688/scales');
+                ws.binaryType = "arraybuffer";
                 ws.onopen = function () {
                     console.log("Connected");
                     $("#status").html("Connected");
-                    // subscribe to some channels
-                    //ws.send(JSON.stringify({
-                    //    //.... some message the I must send when I connect ....
-                    //}));
                 };
 
                 ws.onmessage = function (evt) {
                     console.log("Received")
                     console.log(evt);
-                    localStorage.setItem('storage-event', evt.data);//會通知另一個tab
-                    onMessage(evt.data);
+                    //var message = new TextDecoder("utf-8").decode(evt.data);//arraybuffer
+                    var message = evt.data;//string
+                    onMessage(message);
                 };
 
                 ws.onclose = function (e) {
@@ -48,18 +51,16 @@
                     console.error('Socket encountered error: ', err.message, 'Closing socket');
                     ws.close();
                 };
+
+
+                $("#btnSend").on("click", function () {
+                    var value = $("#txtData").val();
+                    ws.send(value);
+                })
+
             }
-
-
-
             connect();
 
-            window.addEventListener("storage", function (e) {
-                console.log("storage event trigged");
-                if (e.key == 'storage-event') {
-                    onMessage(e.newValue);
-                }
-            }, true);
 
         })
     </script>
